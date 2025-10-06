@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:test_task_chili_labs/core/app_router/app_router.dart';
@@ -10,6 +11,7 @@ void main() async {
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      await dotenv.load(fileName: '.env');
 
       configureDependencies();
       runApp(const MyApp());
