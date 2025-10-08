@@ -5,12 +5,17 @@ import 'injections.config.dart';
 
 final getIt = GetIt.instance;
 
+@module
+abstract class RegisterModule {
+  @lazySingleton
+  Talker get talker => TalkerFlutter.init();
+}
+
 @InjectableInit(
   initializerName: 'init',
   preferRelativeImports: true,
   asExtension: true,
 )
 void configureDependencies() {
-  getIt.registerLazySingleton<Talker>(() => TalkerFlutter.init());
   getIt.init();
 }
