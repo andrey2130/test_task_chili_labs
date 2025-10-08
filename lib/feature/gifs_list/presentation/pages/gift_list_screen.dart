@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_task_chili_labs/core/app_router/app_router.dart';
+import 'package:test_task_chili_labs/core/app_router/coordinator.dart';
 import 'package:test_task_chili_labs/core/failure/errors_overlay.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/domain/params/gifts_search_params.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/presentation/bloc/gifts_bloc.dart';
@@ -19,10 +21,12 @@ class _GiftListScreenState extends State<GiftListScreen> {
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   String _currentQuery = '';
+  late final Coordinator _coordinator;
 
   @override
   void initState() {
     super.initState();
+    _coordinator = Coordinator(appRouter);
     _scrollController.addListener(_onScroll);
   }
 
@@ -65,8 +69,13 @@ class _GiftListScreenState extends State<GiftListScreen> {
               child: BlocBuilder<GiftsBloc, GiftsState>(
                 builder: (context, state) {
                   return switch (state) {
-                    GiftsInitial() => const Text('Start typing to search'),
-                    GiftsLoading() => const _CenteredLoader(),
+                    GiftsInitial() => Text(
+                      'Start typing to search',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    GiftsLoading() => const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
                     GiftsError() => ErrorsOverlay(
                       failure: state.failure,
                       onRetry: () {
@@ -91,13 +100,13 @@ class _GiftListScreenState extends State<GiftListScreen> {
                       gifts: state.gifts,
                       controller: _scrollController,
                       isLoadingMore: false,
-                      onTap: (g) {},
+                      onTap: (gif) => _coordinator.goToGifDetail(gif),
                     ),
                     GiftsLoadingMore() => GiftsGrid(
                       gifts: state.gifts,
                       controller: _scrollController,
                       isLoadingMore: true,
-                      onTap: (g) {},
+                      onTap: (gif) => _coordinator.goToGifDetail(gif),
                     ),
                   };
                 },
@@ -132,14 +141,5 @@ class _GiftListScreenState extends State<GiftListScreen> {
               );
             },
           );
-  }
-}
-
-class _CenteredLoader extends StatelessWidget {
-  const _CenteredLoader();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator.adaptive());
   }
 }

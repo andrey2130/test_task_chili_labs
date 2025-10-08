@@ -18,10 +18,13 @@ class GiftsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemCount = isLoadingMore ? gifts.length + 1 : gifts.length;
+    final orientation = MediaQuery.of(context).orientation;
+    final crossAxisCount = orientation == Orientation.portrait ? 2 : 4;
+
     return GridView.builder(
       controller: controller,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
         childAspectRatio: 0.85,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
@@ -30,7 +33,7 @@ class GiftsGrid extends StatelessWidget {
       itemCount: itemCount,
       itemBuilder: (context, index) {
         if (index >= gifts.length) {
-          return const _LoadingTile();
+          return const Center(child: CircularProgressIndicator.adaptive());
         }
         final gift = gifts[index];
         return _GiftTile(gift: gift, onTap: () => onTap(gift));
@@ -62,18 +65,21 @@ class _GiftTile extends StatelessWidget {
               style: const TextStyle(color: Colors.white, fontSize: 12),
             ),
           ),
-          child: Image.network(gift.previewUrl, fit: BoxFit.cover),
+          child: Hero(
+            tag: gift.id,
+            child: Image.network(
+              gift.previewUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.error_outline, color: Colors.red),
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
-  }
-}
-
-class _LoadingTile extends StatelessWidget {
-  const _LoadingTile();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator.adaptive());
   }
 }
