@@ -1,4 +1,6 @@
 PODS:
+  - connectivity_plus (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - Giphy (2.2.16):
     - libwebp
@@ -24,6 +26,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
   - giphy_flutter_sdk (from `.symlinks/plugins/giphy_flutter_sdk/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -35,6 +38,8 @@ SPEC REPOS:
     - libwebp
 
 EXTERNAL SOURCES:
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   Flutter:
     :path: Flutter
   giphy_flutter_sdk:
@@ -45,6 +50,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/share_plus/ios"
 
 SPEC CHECKSUMS:
+  connectivity_plus: 2a701ffec2c0ae28a48cf7540e279787e77c447d
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   Giphy: 55914215541027873875757f350530e6d8986fba
   giphy_flutter_sdk: df99002fb8641f32793f545cf904a4b77d353dbe
