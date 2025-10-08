@@ -1,5 +1,22 @@
 PODS:
   - Flutter (1.0.0)
+  - Giphy (2.2.16):
+    - libwebp
+  - giphy_flutter_sdk (1.0.5):
+    - Flutter
+    - Giphy (= 2.2.16)
+  - libwebp (1.5.0):
+    - libwebp/demux (= 1.5.0)
+    - libwebp/mux (= 1.5.0)
+    - libwebp/sharpyuv (= 1.5.0)
+    - libwebp/webp (= 1.5.0)
+  - libwebp/demux (1.5.0):
+    - libwebp/webp
+  - libwebp/mux (1.5.0):
+    - libwebp/demux
+  - libwebp/sharpyuv (1.5.0)
+  - libwebp/webp (1.5.0):
+    - libwebp/sharpyuv
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -8,12 +25,20 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - giphy_flutter_sdk (from `.symlinks/plugins/giphy_flutter_sdk/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Giphy
+    - libwebp
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  giphy_flutter_sdk:
+    :path: ".symlinks/plugins/giphy_flutter_sdk/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   share_plus:
@@ -21,9 +46,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  Giphy: 55914215541027873875757f350530e6d8986fba
+  giphy_flutter_sdk: df99002fb8641f32793f545cf904a4b77d353dbe
+  libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   share_plus: 8b6f8b3447e494cca5317c8c3073de39b3600d1f
 
-PODFILE CHECKSUM: 3c63482e143d1b91d2d2560aee9fb04ecc74ac7e
+PODFILE CHECKSUM: 251cb053df7158f337c0712f2ab29f4e0fa474ce
 
 COCOAPODS: 1.16.2
