@@ -35,11 +35,14 @@ class MyApp extends StatelessWidget {
         talker: getIt<Talker>(),
         child: ScreenUtilInit(
           designSize: const Size(375, 812),
-          builder: (context, child) => MaterialApp.router(
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          builder: (context, child) => GestureDetector(
+            onPanDown: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+            child: MaterialApp.router(
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              ),
+              routerConfig: appRouter,
             ),
-            routerConfig: appRouter,
           ),
         ),
       ),
