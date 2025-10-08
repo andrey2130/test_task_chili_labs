@@ -1,10 +1,16 @@
-import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
+import 'package:go_router/go_router.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifts_entity.dart';
 
 class Coordinator {
-  final BuildContext context;
+  final GoRouter router;
 
-  Coordinator({required this.context});
+  Coordinator(this.router);
 
-  void navigateTo() {}
+  void goToGifDetail(GiftsEntity gif) {
+    router.push('/gif-detail', extra: gif);
+  }
+
+  void goBack() {
+    router.pop();
+  }
 }
