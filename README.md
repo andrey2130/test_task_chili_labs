@@ -1,16 +1,111 @@
-# test_task_chili_labs
+# Giphy Search Flutter App
 
-A new Flutter project.
+Flutter application for searching and displaying GIFs from Giphy API with Clean Architecture pattern.
+
+## Flutter Version
+
+**Flutter 3.9.2** (SDK: ^3.9.2)
+
+## Features
+
+- 🔍 Auto search with debounce (900ms delay)
+- 📱 Platform-specific UI (Material for Android, Cupertino for iOS)
+- 📄 Pagination with infinite scroll
+- 🌐 Network connectivity handling
+- 🎨 Responsive UI with orientation support
+- 🏗️ Clean Architecture
+- 🔄 BLoC state management
+- 📐 Coordinator pattern for navigation
+- ✅ Unit tests for business logic
+
+## Architecture
+
+### Layers
+
+- **Domain Layer**: Business logic (Entities, UseCases, Repository interfaces)
+- **Data Layer**: Data sources, Repository implementations, Models
+- **Presentation Layer**: UI, BLoC, Pages, Widgets
+
+### Key Patterns
+
+- Clean Architecture with strict layer separation
+- SOLID principles
+- DRY principle
+- Dependency Injection (get_it + injectable)
+- Functional error handling (dartz Either)
+- Immutable models (freezed + json_serializable)
+
+## Project Structure
+
+```
+lib/
+├── core/
+│   ├── app_router/        # Navigation (go_router + Coordinator)
+│   ├── connectivity/      # Network connectivity feature
+│   ├── failure/          # Error handling
+│   ├── network/          # Dio HTTP client
+│   └── usecases/         # Base UseCase abstraction
+├── feature/
+│   └── gifs_list/
+│       ├── data/         # Models, DataSources, Repositories
+│       ├── domain/       # Entities, UseCases, Repository interfaces
+│       └── presentation/ # BLoC, Pages, Widgets
+└── main.dart
+```
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter 3.35.4 or higher
+- Dart SDK 3.9.2 or higher
+- Giphy API key
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Setup
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repository
+2. Create `.env` file in the root directory:
+   ```
+   GIPHY_API_KEY_IOS=your_api_key_here
+   GIPHY_API_KEY_ANDROID=your_api_key_here
+   ```
+3. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
+4. Generate code:
+   ```bash
+   flutter pub run build_runner build --delete-conflicting-outputs
+   ```
+5. Run the app:
+   ```bash
+   flutter run
+   ```
+
+## Testing
+
+Run unit tests:
+```bash
+flutter test
+```
+
+## Dependencies
+
+### Core
+- `flutter_bloc` - State management
+- `go_router` - Navigation
+- `get_it` + `injectable` - Dependency injection
+- `dartz` - Functional programming (Either)
+- `freezed` + `json_serializable` - Immutable models
+
+### Network
+- `dio` - HTTP client
+- `connectivity_plus` - Network status
+- `talker` - Logging
+
+### UI
+- `flutter_screenutil` - Responsive design
+- `flutter_dotenv` - Environment variables
+
+### Testing
+- `mocktail` - Mocking for tests

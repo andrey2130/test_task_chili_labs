@@ -6,6 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:test_task_chili_labs/core/app_router/app_router.dart';
+import 'package:test_task_chili_labs/core/connectivity/presentation/bloc/connectivity_bloc.dart';
+import 'package:test_task_chili_labs/core/connectivity/presentation/connectivity_listener.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/presentation/bloc/gifts_bloc.dart';
 import 'package:test_task_chili_labs/injections.dart';
 
@@ -30,20 +32,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => getIt<GiftsBloc>())],
+      providers: [
+        BlocProvider(create: (context) => getIt<GiftsBloc>()),
+        BlocProvider(
+          create: (context) =>
+              getIt<ConnectivityBloc>()..add(const ConnectivityStarted()),
+        ),
+      ],
       child: TalkerWrapper(
         talker: getIt<Talker>(),
         child: ScreenUtilInit(
           designSize: const Size(375, 812),
-          builder: (context, child) => GestureDetector(
-            onPanDown: (_) => FocusManager.instance.primaryFocus?.unfocus(),
-            child: MaterialApp.router(
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          builder: (context, child) {
+            return GestureDetector(
+              onPanDown: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+              child: ConnectivityListener(
+                child: MaterialApp.router(
+                  theme: ThemeData(
+                    colorScheme: ColorScheme.fromSeed(
+                      seedColor: Colors.deepPurple,
+                    ),
+                  ),
+                  scaffoldMessengerKey:
+                      getIt<GlobalKey<ScaffoldMessengerState>>(),
+                  routerConfig: appRouter,
+                ),
               ),
-              routerConfig: appRouter,
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

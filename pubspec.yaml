@@ -31,6 +31,7 @@ dependencies:
   talker_dio_logger: ^5.0.0
   giphy_flutter_sdk: ^1.0.5
   flutter_dotenv: ^6.0.0
+  connectivity_plus: ^7.0.0
   
 
 dev_dependencies:
