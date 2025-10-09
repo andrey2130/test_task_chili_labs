@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_task_chili_labs/core/app_router/app_router.dart';
 import 'package:test_task_chili_labs/core/app_router/coordinator.dart';
 import 'package:test_task_chili_labs/core/failure/errors_overlay.dart';
@@ -62,7 +63,7 @@ class _GiftListScreenState extends State<GiftListScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(12.r),
               child: _buildTextField(),
             ),
             Expanded(

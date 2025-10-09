@@ -1,14 +1,29 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:test_task_chili_labs/core/failure/failure.dart';
 
 part 'network_failure.freezed.dart';
 
 @freezed
-sealed class NetworkFailure with _$NetworkFailure {
+sealed class NetworkFailure extends Failure with _$NetworkFailure {
   const factory NetworkFailure.noInternet() = NoInternetFailure;
   const factory NetworkFailure.serverError(String message) = ServerErrorFailure;
   const factory NetworkFailure.timeout() = TimeoutFailure;
   const factory NetworkFailure.unknown(String message) = UnknownFailure;
+
+  const NetworkFailure._() : super(message: '');
+}
+
+extension NetworkFailureReadable on NetworkFailure {
+  String readableMessage() {
+    return switch (this) {
+      NoInternetFailure() =>
+        'Please check your internet connection and try again.',
+      TimeoutFailure() => 'The request timed out. Please try again.',
+      ServerErrorFailure(message: final message) => message,
+      UnknownFailure(message: final message) => message,
+    };
+  }
 }
 
 extension NetworkFailureExtension on DioException {
@@ -46,17 +61,5 @@ extension NetworkFailureExtension on DioException {
       default:
         return NetworkFailure.unknown(message ?? 'Unknown network error');
     }
-  }
-}
-
-extension NetworkFailureReadable on NetworkFailure {
-  String readableMessage() {
-    return switch (this) {
-      NoInternetFailure() =>
-        'Please check your internet connection and try again.',
-      TimeoutFailure() => 'The request timed out. Please try again.',
-      ServerErrorFailure(message: final message) => message,
-      UnknownFailure(message: final message) => message,
-    };
   }
 }

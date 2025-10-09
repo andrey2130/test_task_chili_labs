@@ -39,10 +39,12 @@ dev_dependencies:
     sdk: flutter
 
   
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   mocktail: ^1.0.4
+  bloc_test: ^10.0.0
 
-
+dependency_overrides:
+  test_api: 0.7.6
 
 flutter:
 

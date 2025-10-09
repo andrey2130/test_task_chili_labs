@@ -27,10 +27,6 @@ bool operator ==(Object other) {
 @override
 int get hashCode => runtimeType.hashCode;
 
-@override
-String toString() {
-  return 'NetworkFailure()';
-}
 
 
 }
@@ -186,8 +182,8 @@ return unknown(_that.message);case _:
 /// @nodoc
 
 
-class NoInternetFailure implements NetworkFailure {
-  const NoInternetFailure();
+class NoInternetFailure extends NetworkFailure {
+  const NoInternetFailure(): super._();
   
 
 
@@ -204,10 +200,6 @@ bool operator ==(Object other) {
 @override
 int get hashCode => runtimeType.hashCode;
 
-@override
-String toString() {
-  return 'NetworkFailure.noInternet()';
-}
 
 
 }
@@ -218,8 +210,8 @@ String toString() {
 /// @nodoc
 
 
-class ServerErrorFailure implements NetworkFailure {
-  const ServerErrorFailure(this.message);
+class ServerErrorFailure extends NetworkFailure {
+  const ServerErrorFailure(this.message): super._();
   
 
  final  String message;
@@ -241,10 +233,6 @@ bool operator ==(Object other) {
 @override
 int get hashCode => Object.hash(runtimeType,message);
 
-@override
-String toString() {
-  return 'NetworkFailure.serverError(message: $message)';
-}
 
 
 }
@@ -284,8 +272,8 @@ as String,
 /// @nodoc
 
 
-class TimeoutFailure implements NetworkFailure {
-  const TimeoutFailure();
+class TimeoutFailure extends NetworkFailure {
+  const TimeoutFailure(): super._();
   
 
 
@@ -302,10 +290,6 @@ bool operator ==(Object other) {
 @override
 int get hashCode => runtimeType.hashCode;
 
-@override
-String toString() {
-  return 'NetworkFailure.timeout()';
-}
 
 
 }
@@ -316,8 +300,8 @@ String toString() {
 /// @nodoc
 
 
-class UnknownFailure implements NetworkFailure {
-  const UnknownFailure(this.message);
+class UnknownFailure extends NetworkFailure {
+  const UnknownFailure(this.message): super._();
   
 
  final  String message;
@@ -339,10 +323,6 @@ bool operator ==(Object other) {
 @override
 int get hashCode => Object.hash(runtimeType,message);
 
-@override
-String toString() {
-  return 'NetworkFailure.unknown(message: $message)';
-}
 
 
 }

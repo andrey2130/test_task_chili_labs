@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifts_entity.dart';
 
 class GiftsGrid extends StatelessWidget {
@@ -25,11 +26,11 @@ class GiftsGrid extends StatelessWidget {
       controller: controller,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        childAspectRatio: 0.85,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
+        childAspectRatio: 0.85.r,
+        mainAxisSpacing: 8.r,
+        crossAxisSpacing: 8.r,
       ),
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12.r),
       itemCount: itemCount,
       itemBuilder: (context, index) {
         if (index >= gifts.length) {
@@ -53,16 +54,16 @@ class _GiftTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         child: GridTile(
           footer: Container(
-            padding: const EdgeInsets.all(6),
+            padding: EdgeInsets.all(6.r),
             color: Colors.black54,
             child: Text(
               gift.title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: Colors.white, fontSize: 12),
+              style: TextStyle(color: Colors.white, fontSize: 12.sp),
             ),
           ),
           child: Hero(
