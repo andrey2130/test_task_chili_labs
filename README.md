@@ -57,8 +57,8 @@ lib/
 
 ### Prerequisites
 
-- Flutter 3.35.4 or higher
-- Dart SDK 3.9.2 or higher
+- Flutter 3.35.5 
+- Dart SDK 3.9.2 
 - Giphy API key
 
 ### Setup
