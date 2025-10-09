@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_task_chili_labs/core/app_router/app_router.dart';
 import 'package:test_task_chili_labs/core/app_router/coordinator.dart';
 import 'package:test_task_chili_labs/core/failure/errors_overlay.dart';
+import 'package:test_task_chili_labs/core/presentation/widgets/loading_indicator.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/domain/params/gifts_search_params.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/presentation/bloc/gifts_bloc.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/presentation/widgets/gifts_grid.dart';
@@ -56,60 +57,28 @@ class _GiftListScreenState extends State<GiftListScreen> {
     }
   }
 
+  Future<void> _onRefresh() async {
+    if (_currentQuery.isEmpty) return;
+    context.read<GiftsBloc>().add(
+      GiftsEvent.searchGifs(
+        SearchGifsParams(query: _currentQuery, limit: 10, offset: 0),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.all(12.r),
-              child: _buildTextField(),
-            ),
+            Padding(padding: EdgeInsets.all(12.r), child: _buildTextField()),
             Expanded(
               child: BlocBuilder<GiftsBloc, GiftsState>(
                 builder: (context, state) {
-                  return switch (state) {
-                    GiftsInitial() => Text(
-                      'Start typing to search',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    GiftsLoading() => const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    ),
-                    GiftsError() => ErrorsOverlay(
-                      failure: state.failure,
-                      onRetry: () {
-                        if (_currentQuery.isNotEmpty) {
-                          context.read<GiftsBloc>().add(
-                            GiftsEvent.searchGifs(
-                              SearchGifsParams(
-                                query: _currentQuery,
-                                limit: 10,
-                                offset: 0,
-                              ),
-                            ),
-                          );
-                        } else {
-                          context.read<GiftsBloc>().add(
-                            const GiftsEvent.loadMoreGifs(),
-                          );
-                        }
-                      },
-                    ),
-                    GiftsLoaded() => GiftsGrid(
-                      gifts: state.gifts,
-                      controller: _scrollController,
-                      isLoadingMore: false,
-                      onTap: (gif) => _coordinator.goToGifDetail(gif),
-                    ),
-                    GiftsLoadingMore() => GiftsGrid(
-                      gifts: state.gifts,
-                      controller: _scrollController,
-                      isLoadingMore: true,
-                      onTap: (gif) => _coordinator.goToGifDetail(gif),
-                    ),
-                  };
+                  return Platform.isIOS
+                      ? _buildCupertinoContent(state)
+                      : _buildMaterialContent(state);
                 },
               ),
             ),
@@ -117,6 +86,58 @@ class _GiftListScreenState extends State<GiftListScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildMaterialContent(GiftsState state) {
+    return RefreshIndicator(onRefresh: _onRefresh, child: _buildContent(state));
+  }
+
+  Widget _buildCupertinoContent(GiftsState state) {
+    return CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: [
+        CupertinoSliverRefreshControl(onRefresh: _onRefresh),
+        SliverFillRemaining(child: _buildContent(state)),
+      ],
+    );
+  }
+
+  Widget _buildContent(GiftsState state) {
+    return switch (state) {
+      GiftsInitial() => Center(
+        child: Text(
+          'Start typing to search',
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+      ),
+      GiftsLoading() => const LoadingIndicator(size: 15),
+      GiftsError() => ErrorsOverlay(
+        failure: state.failure,
+        onRetry: () {
+          if (_currentQuery.isNotEmpty) {
+            context.read<GiftsBloc>().add(
+              GiftsEvent.searchGifs(
+                SearchGifsParams(query: _currentQuery, limit: 10, offset: 0),
+              ),
+            );
+          } else {
+            context.read<GiftsBloc>().add(const GiftsEvent.loadMoreGifs());
+          }
+        },
+      ),
+      GiftsLoaded() => GiftsGrid(
+        gifts: state.gifts,
+        controller: _scrollController,
+        isLoadingMore: false,
+        onTap: (gif) => _coordinator.goToGifDetail(gif),
+      ),
+      GiftsLoadingMore() => GiftsGrid(
+        gifts: state.gifts,
+        controller: _scrollController,
+        isLoadingMore: true,
+        onTap: (gif) => _coordinator.goToGifDetail(gif),
+      ),
+    };
   }
 
   Widget _buildTextField() {
