@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_task_chili_labs/core/app_router/app_router.dart';
 import 'package:test_task_chili_labs/core/app_router/coordinator.dart';
 import 'package:test_task_chili_labs/core/failure/errors_overlay.dart';
-import 'package:test_task_chili_labs/core/presentation/widgets/loading_indicator.dart';
+import 'package:test_task_chili_labs/core/widgets/loading_indicator.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/domain/params/gifts_search_params.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/presentation/bloc/gifts_bloc.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/presentation/widgets/gifts_grid.dart';
@@ -57,15 +57,6 @@ class _GiftListScreenState extends State<GiftListScreen> {
     }
   }
 
-  Future<void> _onRefresh() async {
-    if (_currentQuery.isEmpty) return;
-    context.read<GiftsBloc>().add(
-      GiftsEvent.searchGifs(
-        SearchGifsParams(query: _currentQuery, limit: 10, offset: 0),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,30 +66,12 @@ class _GiftListScreenState extends State<GiftListScreen> {
             Padding(padding: EdgeInsets.all(12.r), child: _buildTextField()),
             Expanded(
               child: BlocBuilder<GiftsBloc, GiftsState>(
-                builder: (context, state) {
-                  return Platform.isIOS
-                      ? _buildCupertinoContent(state)
-                      : _buildMaterialContent(state);
-                },
+                builder: (context, state) => _buildContent(state),
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildMaterialContent(GiftsState state) {
-    return RefreshIndicator(onRefresh: _onRefresh, child: _buildContent(state));
-  }
-
-  Widget _buildCupertinoContent(GiftsState state) {
-    return CustomScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      slivers: [
-        CupertinoSliverRefreshControl(onRefresh: _onRefresh),
-        SliverFillRemaining(child: _buildContent(state)),
-      ],
     );
   }
 

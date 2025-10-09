@@ -26,7 +26,7 @@ class GiftsBloc extends Bloc<GiftsEvent, GiftsState> {
     : super(const GiftsState.initial()) {
     on<SearchGifsEvent>(
       _onSearchGifts,
-      transformer: _debounceEventTransformer(const Duration(milliseconds: 900)),
+      transformer: _debounceEventTransformer(const Duration(milliseconds: 500)),
     );
     on<LoadMoreGiftsEvent>(_onLoadMoreGifts);
     on<ClearGiftsEvent>(_onClearGifts);
@@ -92,7 +92,11 @@ class GiftsBloc extends Bloc<GiftsEvent, GiftsState> {
           if (isNewSearch) {
             _currentGifts = List.from(gifts);
           } else {
-            _currentGifts.addAll(gifts);
+            final existingIds = _currentGifts.map((e) => e.id).toSet();
+            final uniqueGifs = gifts
+                .where((gif) => !existingIds.contains(gif.id))
+                .toList();
+            _currentGifts.addAll(uniqueGifs);
           }
           _currentOffset += gifts.length;
 

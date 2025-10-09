@@ -8,7 +8,7 @@ Flutter application for searching and displaying GIFs from Giphy API with Clean 
 
 ## Features
 
-- Auto search with debounce (900ms delay)
+- Auto search with debounce (500ms delay)
 - Platform-specific UI (Material for Android, Cupertino for iOS)
 - Pagination with infinite scroll
 - Network connectivity handling
