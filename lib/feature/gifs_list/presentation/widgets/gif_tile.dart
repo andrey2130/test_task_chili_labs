@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifs_entity.dart';
 
-class GiftTile extends StatelessWidget {
-  final GifsEntity gift;
+class GifTile extends StatelessWidget {
+  final GifsEntity gif;
   final VoidCallback onTap;
 
-  const GiftTile({super.key, required this.gift, required this.onTap});
+  const GifTile({super.key, required this.gif, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +19,16 @@ class GiftTile extends StatelessWidget {
             padding: EdgeInsets.all(6.r),
             color: Colors.black54,
             child: Text(
-              gift.title,
+              gif.title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: Colors.white, fontSize: 12.sp),
             ),
           ),
           child: Hero(
-            tag: gift.id,
+            tag: gif.id,
             child: Image.network(
-              gift.previewUrl,
+              gif.previewUrl,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Container(

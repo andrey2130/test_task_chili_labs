@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifs_entity.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/presentation/widgets/gift_tile.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/presentation/widgets/gif_tile.dart';
 
 class GifsGrid extends StatelessWidget {
   final List<GifsEntity> gifs;
@@ -37,8 +37,8 @@ class GifsGrid extends StatelessWidget {
         if (index >= gifs.length) {
           return const Center(child: CircularProgressIndicator.adaptive());
         }
-        final gift = gifs[index];
-        return GiftTile(gift: gift, onTap: () => onTap(gift));
+        final gif = gifs[index];
+        return GifTile(gif: gif, onTap: () => onTap(gif));
       },
     );
   }
