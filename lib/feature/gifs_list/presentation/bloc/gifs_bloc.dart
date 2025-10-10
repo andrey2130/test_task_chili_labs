@@ -5,47 +5,48 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:test_task_chili_labs/core/failure/network_failure.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifts_entity.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/params/gifts_search_params.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/usecase/search_gifts_usecase.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifs_entity.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/params/gifs_search_params.dart';
 
-part 'gifts_event.dart';
-part 'gifts_state.dart';
-part 'gifts_bloc.freezed.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/usecase/search_gifs_usecase.dart';
+
+part 'gifs_event.dart';
+part 'gifs_state.dart';
+part 'gifs_bloc.freezed.dart';
 
 @injectable
-class GiftsBloc extends Bloc<GiftsEvent, GiftsState> {
-  final SearchGiftsUseCase _searchGiftsUseCase;
+class GifsBloc extends Bloc<GifsEvent, GifsState> {
+  final SearchGifsUseCase _searchGifsUseCase;
   final Talker _talker;
-  List<GiftsEntity> _currentGifts = [];
+  List<GifsEntity> _currentGifs = [];
   String _currentQuery = '';
   int _currentOffset = 0;
   static const int _defaultLimit = 10;
 
-  GiftsBloc(this._searchGiftsUseCase, this._talker)
-    : super(const GiftsState.initial()) {
+  GifsBloc(this._searchGifsUseCase, this._talker)
+    : super(const GifsState.initial()) {
     on<SearchGifsEvent>(
-      _onSearchGifts,
+      _onSearchGifs,
       transformer: _debounceEventTransformer(const Duration(milliseconds: 500)),
     );
-    on<LoadMoreGiftsEvent>(_onLoadMoreGifts);
-    on<ClearGiftsEvent>(_onClearGifts);
+    on<LoadMoreGifsEvent>(_onLoadMoreGifs);
+    on<ClearGifsEvent>(_onClearGifs);
   }
 
-  Future<void> _onSearchGifts(
+  Future<void> _onSearchGifs(
     SearchGifsEvent event,
-    Emitter<GiftsState> emit,
+    Emitter<GifsState> emit,
   ) async {
     await _performSearch(event.params, emit, isNewSearch: true);
   }
 
-  Future<void> _onLoadMoreGifts(
-    LoadMoreGiftsEvent event,
-    Emitter<GiftsState> emit,
+  Future<void> _onLoadMoreGifs(
+    LoadMoreGifsEvent event,
+    Emitter<GifsState> emit,
   ) async {
-    if (state is GiftsLoaded && _currentQuery.isNotEmpty) {
-      final currentState = state as GiftsLoaded;
-      emit(GiftsState.loadingMore(currentState.gifts));
+    if (state is GifsLoaded && _currentQuery.isNotEmpty) {
+      final currentState = state as GifsLoaded;
+      emit(GifsState.loadingMore(currentState.gifs));
 
       final params = SearchGifsParams(
         query: _currentQuery,
@@ -57,56 +58,56 @@ class GiftsBloc extends Bloc<GiftsEvent, GiftsState> {
     }
   }
 
-  Future<void> _onClearGifts(
-    ClearGiftsEvent event,
-    Emitter<GiftsState> emit,
+  Future<void> _onClearGifs(
+    ClearGifsEvent event,
+    Emitter<GifsState> emit,
   ) async {
-    _currentGifts.clear();
+    _currentGifs.clear();
     _currentQuery = '';
     _currentOffset = 0;
-    emit(const GiftsState.initial());
+    emit(const GifsState.initial());
   }
 
   Future<void> _performSearch(
     SearchGifsParams params,
-    Emitter<GiftsState> emit, {
+    Emitter<GifsState> emit, {
     required bool isNewSearch,
   }) async {
     try {
       if (isNewSearch) {
-        emit(const GiftsState.loading());
-        _currentGifts.clear();
+        emit(const GifsState.loading());
+        _currentGifs.clear();
         _currentOffset = 0;
         _currentQuery = params.query;
       }
 
-      final result = await _searchGiftsUseCase(params);
+      final result = await _searchGifsUseCase(params);
 
       result.fold(
         (failure) {
           _talker.error('Search failed: ${failure.message}');
           final networkFailure = _parseFailureToNetworkFailure(failure.message);
-          emit(GiftsState.error(networkFailure));
+          emit(GifsState.error(networkFailure));
         },
-        (gifts) {
+        (gif) {
           if (isNewSearch) {
-            _currentGifts = List.from(gifts);
+            _currentGifs = List.from(gif);
           } else {
-            final existingIds = _currentGifts.map((e) => e.id).toSet();
-            final uniqueGifs = gifts
+            final existingIds = _currentGifs.map((e) => e.id).toSet();
+            final uniqueGifs = gif
                 .where((gif) => !existingIds.contains(gif.id))
                 .toList();
-            _currentGifts.addAll(uniqueGifs);
+            _currentGifs.addAll(uniqueGifs);
           }
-          _currentOffset += gifts.length;
+          _currentOffset += gif.length;
 
-          emit(GiftsState.loaded(_currentGifts));
+          emit(GifsState.loaded(_currentGifs));
         },
       );
     } catch (e) {
       _talker.error('Unexpected error during search: $e');
       emit(
-        const GiftsState.error(
+        const GifsState.error(
           NetworkFailure.unknown('An unexpected error occurred'),
         ),
       );

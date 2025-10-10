@@ -2,25 +2,25 @@ import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:test_task_chili_labs/core/constant/api_url.dart';
 import 'package:test_task_chili_labs/core/network/dio_client.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/data/model/gifts_model.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/data/model/gifs_model.dart';
 
-abstract class GiftsDatasource {
-  Future<List<GiftsModel>> searchGifs({
+abstract class GifsDatasource {
+  Future<List<GifsModel>> searchGifs({
     required String query,
     int? limit,
     int? offset,
   });
 }
 
-@Injectable(as: GiftsDatasource)
-class GiftsDatasourceImpl implements GiftsDatasource {
+@Injectable(as: GifsDatasource)
+class GifsDatasourceImpl implements GifsDatasource {
   final DioClient dioClient;
   final Talker talker;
 
-  GiftsDatasourceImpl(this.dioClient, this.talker);
+  GifsDatasourceImpl(this.dioClient, this.talker);
 
   @override
-  Future<List<GiftsModel>> searchGifs({
+  Future<List<GifsModel>> searchGifs({
     required String query,
     int? limit,
     int? offset,
@@ -41,7 +41,7 @@ class GiftsDatasourceImpl implements GiftsDatasource {
 
       final list = (response.data['data'] as List)
           .map(
-            (e) => GiftsModel(
+            (e) => GifsModel(
               id: e['id'] as String,
               title: (e['title'] as String?)?.trim() ?? '',
               previewUrl:

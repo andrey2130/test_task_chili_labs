@@ -2,20 +2,21 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test_task_chili_labs/core/failure/failure.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifts_entity.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/params/gifts_search_params.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/repository/gifts_repository.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/usecase/search_gifts_usecase.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifs_entity.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/params/gifs_search_params.dart';
 
-class MockGiftsRepository extends Mock implements GiftsRepository {}
+import 'package:test_task_chili_labs/feature/gifs_list/domain/repository/gifs_repository.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/usecase/search_gifs_usecase.dart';
+
+class MockGifsRepository extends Mock implements GifsRepository {}
 
 void main() {
-  late SearchGiftsUseCase useCase;
-  late MockGiftsRepository mockRepository;
+  late SearchGifsUseCase useCase;
+  late MockGifsRepository mockRepository;
 
   setUp(() {
-    mockRepository = MockGiftsRepository();
-    useCase = SearchGiftsUseCase(mockRepository);
+    mockRepository = MockGifsRepository();
+    useCase = SearchGifsUseCase(mockRepository);
   });
 
   const tQuery = 'funny cats';
@@ -28,14 +29,14 @@ void main() {
   );
 
   final tGifsList = [
-    const GiftsEntity(
+    const GifsEntity(
       id: '1',
       title: 'Funny Cat',
       previewUrl: 'https://example.com/preview.gif',
       originalUrl: 'https://example.com/original.gif',
       username: 'test_user',
     ),
-    const GiftsEntity(
+    const GifsEntity(
       id: '2',
       title: 'Another Cat',
       previewUrl: 'https://example.com/preview2.gif',
@@ -44,9 +45,9 @@ void main() {
     ),
   ];
 
-  group('SearchGiftsUseCase', () {
+  group('SearchGifsUseCase', () {
     test(
-      'should return list of GiftsEntity when repository call is successful',
+      'should return list of GifsEntity when repository call is successful',
       () async {
         when(
           () => mockRepository.searchGifs(

@@ -2,9 +2,11 @@
 
 Flutter application for searching and displaying GIFs from Giphy API with Clean Architecture pattern.
 
-## Flutter Version
+## Flutter Version - 3.35.5
+## Dart 3.9.2
 
-**Flutter 3.9.2** (SDK: ^3.9.2)
+
+
 
 ## Features
 

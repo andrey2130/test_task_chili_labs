@@ -3,31 +3,31 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:test_task_chili_labs/core/failure/failure.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/data/datasource/gifts_datasource.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/data/model/gifts_model.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/data/repository/gifts_repository.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/data/datasource/gifs_datasource.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/data/model/gifs_model.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/data/repository/gifs_repository.dart';
 
-class MockGiftsDatasource extends Mock implements GiftsDatasource {}
+class MockGifsDatasource extends Mock implements GifsDatasource {}
 
 class MockTalker extends Mock implements Talker {}
 
 void main() {
-  late GiftsRepositoryImpl repository;
-  late MockGiftsDatasource mockDatasource;
+  late GifsRepositoryImpl repository;
+  late MockGifsDatasource mockDatasource;
   late MockTalker mockTalker;
 
   setUp(() {
-    mockDatasource = MockGiftsDatasource();
+    mockDatasource = MockGifsDatasource();
     mockTalker = MockTalker();
-    repository = GiftsRepositoryImpl(mockDatasource, mockTalker);
+    repository = GifsRepositoryImpl(mockDatasource, mockTalker);
   });
 
   const tQuery = 'test';
   const tLimit = 10;
   const tOffset = 0;
 
-  final tGiftsModelList = [
-    const GiftsModel(
+  final tGifsModelList = [
+    const GifsModel(
       id: '1',
       title: 'Test GIF',
       previewUrl: 'https://example.com/preview.gif',
@@ -36,11 +36,11 @@ void main() {
     ),
   ];
 
-  final tGiftsEntityList = tGiftsModelList.map((m) => m.toEntity()).toList();
+  final tGifsEntityList = tGifsModelList.map((m) => m.toEntity()).toList();
 
-  group('GiftsRepositoryImpl - searchGifs', () {
+  group('GifsRepositoryImpl - searchGifs', () {
     test(
-      'should return list of GiftsEntity when datasource call is successful',
+      'should return list of GifsEntity when datasource call is successful',
       () async {
         when(
           () => mockDatasource.searchGifs(
@@ -48,7 +48,7 @@ void main() {
             limit: any(named: 'limit'),
             offset: any(named: 'offset'),
           ),
-        ).thenAnswer((_) async => tGiftsModelList);
+        ).thenAnswer((_) async => tGifsModelList);
 
         final result = await repository.searchGifs(
           query: tQuery,
@@ -58,7 +58,7 @@ void main() {
 
         result.fold(
           (failure) => fail('Should return Right but got Left'),
-          (entities) => expect(entities, tGiftsEntityList),
+          (entities) => expect(entities, tGifsEntityList),
         );
         verify(
           () => mockDatasource.searchGifs(

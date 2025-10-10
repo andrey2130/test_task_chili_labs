@@ -8,18 +8,18 @@ import 'package:test_task_chili_labs/core/app_router/app_router.dart';
 import 'package:test_task_chili_labs/core/app_router/coordinator.dart';
 import 'package:test_task_chili_labs/core/failure/errors_overlay.dart';
 import 'package:test_task_chili_labs/core/widgets/loading_indicator.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/params/gifts_search_params.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/presentation/bloc/gifts_bloc.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/presentation/widgets/gifts_grid.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/params/gifs_search_params.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/presentation/bloc/gifs_bloc.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/presentation/widgets/gifs_grid.dart';
 
-class GiftListScreen extends StatefulWidget {
-  const GiftListScreen({super.key});
+class GifListScreen extends StatefulWidget {
+  const GifListScreen({super.key});
 
   @override
-  State<GiftListScreen> createState() => _GiftListScreenState();
+  State<GifListScreen> createState() => _GifListScreenState();
 }
 
-class _GiftListScreenState extends State<GiftListScreen> {
+class _GifListScreenState extends State<GifListScreen> {
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   String _currentQuery = '';
@@ -42,8 +42,8 @@ class _GiftListScreenState extends State<GiftListScreen> {
 
   void _onChanged(String value) {
     _currentQuery = value;
-    context.read<GiftsBloc>().add(
-      GiftsEvent.searchGifs(
+    context.read<GifsBloc>().add(
+      GifsEvent.searchGifs(
         SearchGifsParams(query: value, limit: 10, offset: 0),
       ),
     );
@@ -53,7 +53,7 @@ class _GiftListScreenState extends State<GiftListScreen> {
     if (!_scrollController.hasClients) return;
     final position = _scrollController.position;
     if (position.pixels >= position.maxScrollExtent - 300) {
-      context.read<GiftsBloc>().add(const GiftsEvent.loadMoreGifs());
+      context.read<GifsBloc>().add(const GifsEvent.loadMoreGifs());
     }
   }
 
@@ -65,7 +65,7 @@ class _GiftListScreenState extends State<GiftListScreen> {
           children: [
             Padding(padding: EdgeInsets.all(12.r), child: _buildTextField()),
             Expanded(
-              child: BlocBuilder<GiftsBloc, GiftsState>(
+              child: BlocBuilder<GifsBloc, GifsState>(
                 builder: (context, state) => _buildContent(state),
               ),
             ),
@@ -75,37 +75,37 @@ class _GiftListScreenState extends State<GiftListScreen> {
     );
   }
 
-  Widget _buildContent(GiftsState state) {
+  Widget _buildContent(GifsState state) {
     return switch (state) {
-      GiftsInitial() => Center(
+      GifsInitial() => Center(
         child: Text(
           'Start typing to search',
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ),
-      GiftsLoading() => const LoadingIndicator(size: 15),
-      GiftsError() => ErrorsOverlay(
-        failure: state.failure,
+      GifsLoading() => const LoadingIndicator(size: 15),
+      GifsError(:final failure) => ErrorsOverlay(
+        failure: failure,
         onRetry: () {
           if (_currentQuery.isNotEmpty) {
-            context.read<GiftsBloc>().add(
-              GiftsEvent.searchGifs(
+            context.read<GifsBloc>().add(
+              GifsEvent.searchGifs(
                 SearchGifsParams(query: _currentQuery, limit: 10, offset: 0),
               ),
             );
           } else {
-            context.read<GiftsBloc>().add(const GiftsEvent.loadMoreGifs());
+            context.read<GifsBloc>().add(const GifsEvent.loadMoreGifs());
           }
         },
       ),
-      GiftsLoaded() => GiftsGrid(
-        gifts: state.gifts,
+      GifsLoaded(:final gifs) => GifsGrid(
+        gifs: gifs,
         controller: _scrollController,
         isLoadingMore: false,
         onTap: (gif) => _coordinator.goToGifDetail(gif),
       ),
-      GiftsLoadingMore() => GiftsGrid(
-        gifts: state.gifts,
+      GifsLoadingMore(:final gifs) => GifsGrid(
+        gifs: gifs,
         controller: _scrollController,
         isLoadingMore: true,
         onTap: (gif) => _coordinator.goToGifDetail(gif),
@@ -129,8 +129,8 @@ class _GiftListScreenState extends State<GiftListScreen> {
             controller: _searchController,
             onChanged: _onChanged,
             onSubmitted: (value) {
-              context.read<GiftsBloc>().add(
-                GiftsEvent.searchGifs(
+              context.read<GifsBloc>().add(
+                GifsEvent.searchGifs(
                   SearchGifsParams(query: value, limit: 10, offset: 0),
                 ),
               );

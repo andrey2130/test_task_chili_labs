@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'gifts_model.dart';
+part of 'gifs_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'gifts_model.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$GiftsModel {
+mixin _$GifsModel {
 
  String get id; String get title;@JsonKey(name: 'preview_url') String get previewUrl;@JsonKey(name: 'original_url') String get originalUrl; String get username;
-/// Create a copy of GiftsModel
+/// Create a copy of GifsModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$GiftsModelCopyWith<GiftsModel> get copyWith => _$GiftsModelCopyWithImpl<GiftsModel>(this as GiftsModel, _$identity);
+$GifsModelCopyWith<GifsModel> get copyWith => _$GifsModelCopyWithImpl<GifsModel>(this as GifsModel, _$identity);
 
-  /// Serializes this GiftsModel to a JSON map.
+  /// Serializes this GifsModel to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GiftsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.previewUrl, previewUrl) || other.previewUrl == previewUrl)&&(identical(other.originalUrl, originalUrl) || other.originalUrl == originalUrl)&&(identical(other.username, username) || other.username == username));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GifsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.previewUrl, previewUrl) || other.previewUrl == previewUrl)&&(identical(other.originalUrl, originalUrl) || other.originalUrl == originalUrl)&&(identical(other.username, username) || other.username == username));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,15 +37,15 @@ int get hashCode => Object.hash(runtimeType,id,title,previewUrl,originalUrl,user
 
 @override
 String toString() {
-  return 'GiftsModel(id: $id, title: $title, previewUrl: $previewUrl, originalUrl: $originalUrl, username: $username)';
+  return 'GifsModel(id: $id, title: $title, previewUrl: $previewUrl, originalUrl: $originalUrl, username: $username)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $GiftsModelCopyWith<$Res>  {
-  factory $GiftsModelCopyWith(GiftsModel value, $Res Function(GiftsModel) _then) = _$GiftsModelCopyWithImpl;
+abstract mixin class $GifsModelCopyWith<$Res>  {
+  factory $GifsModelCopyWith(GifsModel value, $Res Function(GifsModel) _then) = _$GifsModelCopyWithImpl;
 @useResult
 $Res call({
  String id, String title,@JsonKey(name: 'preview_url') String previewUrl,@JsonKey(name: 'original_url') String originalUrl, String username
@@ -56,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$GiftsModelCopyWithImpl<$Res>
-    implements $GiftsModelCopyWith<$Res> {
-  _$GiftsModelCopyWithImpl(this._self, this._then);
+class _$GifsModelCopyWithImpl<$Res>
+    implements $GifsModelCopyWith<$Res> {
+  _$GifsModelCopyWithImpl(this._self, this._then);
 
-  final GiftsModel _self;
-  final $Res Function(GiftsModel) _then;
+  final GifsModel _self;
+  final $Res Function(GifsModel) _then;
 
-/// Create a copy of GiftsModel
+/// Create a copy of GifsModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? previewUrl = null,Object? originalUrl = null,Object? username = null,}) {
   return _then(_self.copyWith(
@@ -79,8 +79,8 @@ as String,
 }
 
 
-/// Adds pattern-matching-related methods to [GiftsModel].
-extension GiftsModelPatterns on GiftsModel {
+/// Adds pattern-matching-related methods to [GifsModel].
+extension GifsModelPatterns on GifsModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -93,10 +93,10 @@ extension GiftsModelPatterns on GiftsModel {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _GiftsModel value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _GifsModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _GiftsModel() when $default != null:
+case _GifsModel() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -115,10 +115,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _GiftsModel value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _GifsModel value)  $default,){
 final _that = this;
 switch (_that) {
-case _GiftsModel():
+case _GifsModel():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -136,10 +136,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _GiftsModel value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _GifsModel value)?  $default,){
 final _that = this;
 switch (_that) {
-case _GiftsModel() when $default != null:
+case _GifsModel() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'preview_url')  String previewUrl, @JsonKey(name: 'original_url')  String originalUrl,  String username)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _GiftsModel() when $default != null:
+case _GifsModel() when $default != null:
 return $default(_that.id,_that.title,_that.previewUrl,_that.originalUrl,_that.username);case _:
   return orElse();
 
@@ -180,7 +180,7 @@ return $default(_that.id,_that.title,_that.previewUrl,_that.originalUrl,_that.us
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title, @JsonKey(name: 'preview_url')  String previewUrl, @JsonKey(name: 'original_url')  String originalUrl,  String username)  $default,) {final _that = this;
 switch (_that) {
-case _GiftsModel():
+case _GifsModel():
 return $default(_that.id,_that.title,_that.previewUrl,_that.originalUrl,_that.username);case _:
   throw StateError('Unexpected subclass');
 
@@ -200,7 +200,7 @@ return $default(_that.id,_that.title,_that.previewUrl,_that.originalUrl,_that.us
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title, @JsonKey(name: 'preview_url')  String previewUrl, @JsonKey(name: 'original_url')  String originalUrl,  String username)?  $default,) {final _that = this;
 switch (_that) {
-case _GiftsModel() when $default != null:
+case _GifsModel() when $default != null:
 return $default(_that.id,_that.title,_that.previewUrl,_that.originalUrl,_that.username);case _:
   return null;
 
@@ -212,9 +212,9 @@ return $default(_that.id,_that.title,_that.previewUrl,_that.originalUrl,_that.us
 /// @nodoc
 @JsonSerializable()
 
-class _GiftsModel extends GiftsModel {
-  const _GiftsModel({required this.id, required this.title, @JsonKey(name: 'preview_url') required this.previewUrl, @JsonKey(name: 'original_url') required this.originalUrl, required this.username}): super._();
-  factory _GiftsModel.fromJson(Map<String, dynamic> json) => _$GiftsModelFromJson(json);
+class _GifsModel extends GifsModel {
+  const _GifsModel({required this.id, required this.title, @JsonKey(name: 'preview_url') required this.previewUrl, @JsonKey(name: 'original_url') required this.originalUrl, required this.username}): super._();
+  factory _GifsModel.fromJson(Map<String, dynamic> json) => _$GifsModelFromJson(json);
 
 @override final  String id;
 @override final  String title;
@@ -222,20 +222,20 @@ class _GiftsModel extends GiftsModel {
 @override@JsonKey(name: 'original_url') final  String originalUrl;
 @override final  String username;
 
-/// Create a copy of GiftsModel
+/// Create a copy of GifsModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$GiftsModelCopyWith<_GiftsModel> get copyWith => __$GiftsModelCopyWithImpl<_GiftsModel>(this, _$identity);
+_$GifsModelCopyWith<_GifsModel> get copyWith => __$GifsModelCopyWithImpl<_GifsModel>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$GiftsModelToJson(this, );
+  return _$GifsModelToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GiftsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.previewUrl, previewUrl) || other.previewUrl == previewUrl)&&(identical(other.originalUrl, originalUrl) || other.originalUrl == originalUrl)&&(identical(other.username, username) || other.username == username));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GifsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.previewUrl, previewUrl) || other.previewUrl == previewUrl)&&(identical(other.originalUrl, originalUrl) || other.originalUrl == originalUrl)&&(identical(other.username, username) || other.username == username));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -244,15 +244,15 @@ int get hashCode => Object.hash(runtimeType,id,title,previewUrl,originalUrl,user
 
 @override
 String toString() {
-  return 'GiftsModel(id: $id, title: $title, previewUrl: $previewUrl, originalUrl: $originalUrl, username: $username)';
+  return 'GifsModel(id: $id, title: $title, previewUrl: $previewUrl, originalUrl: $originalUrl, username: $username)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$GiftsModelCopyWith<$Res> implements $GiftsModelCopyWith<$Res> {
-  factory _$GiftsModelCopyWith(_GiftsModel value, $Res Function(_GiftsModel) _then) = __$GiftsModelCopyWithImpl;
+abstract mixin class _$GifsModelCopyWith<$Res> implements $GifsModelCopyWith<$Res> {
+  factory _$GifsModelCopyWith(_GifsModel value, $Res Function(_GifsModel) _then) = __$GifsModelCopyWithImpl;
 @override @useResult
 $Res call({
  String id, String title,@JsonKey(name: 'preview_url') String previewUrl,@JsonKey(name: 'original_url') String originalUrl, String username
@@ -263,17 +263,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$GiftsModelCopyWithImpl<$Res>
-    implements _$GiftsModelCopyWith<$Res> {
-  __$GiftsModelCopyWithImpl(this._self, this._then);
+class __$GifsModelCopyWithImpl<$Res>
+    implements _$GifsModelCopyWith<$Res> {
+  __$GifsModelCopyWithImpl(this._self, this._then);
 
-  final _GiftsModel _self;
-  final $Res Function(_GiftsModel) _then;
+  final _GifsModel _self;
+  final $Res Function(_GifsModel) _then;
 
-/// Create a copy of GiftsModel
+/// Create a copy of GifsModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? previewUrl = null,Object? originalUrl = null,Object? username = null,}) {
-  return _then(_GiftsModel(
+  return _then(_GifsModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,previewUrl: null == previewUrl ? _self.previewUrl : previewUrl // ignore: cast_nullable_to_non_nullable

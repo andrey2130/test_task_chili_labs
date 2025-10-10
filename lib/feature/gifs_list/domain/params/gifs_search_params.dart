@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'gifts_search_params.freezed.dart';
-part 'gifts_search_params.g.dart';
+part 'gifs_search_params.freezed.dart';
+part 'gifs_search_params.g.dart';
 
 @freezed
 abstract class SearchGifsParams with _$SearchGifsParams {

@@ -4,25 +4,25 @@ import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:test_task_chili_labs/core/failure/failure.dart';
 import 'package:test_task_chili_labs/core/failure/network_failure.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/data/datasource/gifts_datasource.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifts_entity.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/repository/gifts_repository.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/data/datasource/gifs_datasource.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifs_entity.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/repository/gifs_repository.dart';
 
-@Injectable(as: GiftsRepository)
-class GiftsRepositoryImpl implements GiftsRepository {
-  final GiftsDatasource giftsDatasource;
+@Injectable(as: GifsRepository)
+class GifsRepositoryImpl implements GifsRepository {
+  final GifsDatasource gifsDatasource;
   final Talker talker;
 
-  GiftsRepositoryImpl(this.giftsDatasource, this.talker);
+  GifsRepositoryImpl(this.gifsDatasource, this.talker);
 
   @override
-  Future<Either<Failure, List<GiftsEntity>>> searchGifs({
+  Future<Either<Failure, List<GifsEntity>>> searchGifs({
     required String query,
     int? limit,
     int? offset,
   }) async {
     try {
-      final list = await giftsDatasource.searchGifs(
+      final list = await gifsDatasource.searchGifs(
         query: query,
         limit: limit,
         offset: offset,

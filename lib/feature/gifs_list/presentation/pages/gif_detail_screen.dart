@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifts_entity.dart';
+import 'package:test_task_chili_labs/feature/gifs_list/domain/entities/gifs_entity.dart';
 
 class GifDetailScreen extends StatelessWidget {
-  final GiftsEntity gif;
+  final GifsEntity gif;
 
   const GifDetailScreen({super.key, required this.gif});
 

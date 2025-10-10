@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'gifts_entity.dart';
+part of 'gifs_entity.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_GiftsEntity _$GiftsEntityFromJson(Map<String, dynamic> json) => _GiftsEntity(
+_GifsEntity _$GifsEntityFromJson(Map<String, dynamic> json) => _GifsEntity(
   id: json['id'] as String,
   title: json['title'] as String,
   previewUrl: json['previewUrl'] as String,
@@ -14,7 +14,7 @@ _GiftsEntity _$GiftsEntityFromJson(Map<String, dynamic> json) => _GiftsEntity(
   username: json['username'] as String,
 );
 
-Map<String, dynamic> _$GiftsEntityToJson(_GiftsEntity instance) =>
+Map<String, dynamic> _$GifsEntityToJson(_GifsEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,

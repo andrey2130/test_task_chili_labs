@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'gifts_search_params.dart';
+part of 'gifs_search_params.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
